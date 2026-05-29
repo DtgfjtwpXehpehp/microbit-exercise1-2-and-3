@@ -1,3 +1,13 @@
+input.onLogoEvent(TouchButtonEvent.LongPressed, function () {
+    basic.showLeds(`
+        # # . . .
+        # # . # #
+        . # . # .
+        . # # # .
+        . . . . .
+        `)
+    playerChoice = 4
+})
 input.onButtonPressed(Button.A, function () {
     basic.showLeds(`
         . . . . .
@@ -29,11 +39,8 @@ input.onButtonPressed(Button.B, function () {
     playerChoice = 1
 })
 input.onGesture(Gesture.Shake, function () {
-    // 1. Pick a random number between 0 and 2 ONCE
-    randomMicrobitChoice = randint(0, 2)
-    // 2. Check that number and show the matching icon
+    randomMicrobitChoice = randint(0, 4)
     if (randomMicrobitChoice == 0) {
-        // Rock
         basic.showLeds(`
             . . . . .
             . # # # .
@@ -42,7 +49,6 @@ input.onGesture(Gesture.Shake, function () {
             . . . . .
             `)
     } else if (randomMicrobitChoice == 1) {
-        // Paper
         basic.showLeds(`
             # # # # #
             # . . . #
@@ -50,8 +56,7 @@ input.onGesture(Gesture.Shake, function () {
             # . . . #
             # # # # #
             `)
-    } else {
-        // Scissors
+    } else if (randomMicrobitChoice == 2) {
         basic.showLeds(`
             # # . . #
             # # . # .
@@ -59,19 +64,41 @@ input.onGesture(Gesture.Shake, function () {
             # # . # .
             # # . . #
             `)
+    } else if (randomMicrobitChoice == 3) {
+        basic.showLeds(`
+            # . # . #
+            # # # # #
+            # # # # #
+            . . # . .
+            . . # . .
+            `)
+    } else {
+        basic.showLeds(`
+            # # . . .
+            # # . # #
+            . # . # .
+            . # # # .
+            . . . . .
+            `)
     }
     microbitChoice = randomMicrobitChoice
-    // Compare choices to find the winner
-    // Rock beats Scissors
-    // Paper beats Rock
-    // Scissors beats Paper
     if (playerChoice == microbitChoice) {
         basic.showString("Tie")
-    } else if (playerChoice == 0 && microbitChoice == 2 || playerChoice == 1 && microbitChoice == 0 || playerChoice == 2 && microbitChoice == 1) {
+    } else if (playerChoice == 0 && microbitChoice == 2 || playerChoice == 1 && microbitChoice == 0 || playerChoice == 2 && microbitChoice == 1 || playerChoice == 3 && microbitChoice == 1 || playerChoice == 3 && microbitChoice == 4 || playerChoice == 4 && microbitChoice == 0 || playerChoice == 4 && microbitChoice == 2 || playerChoice == 0 && microbitChoice == 3 || playerChoice == 1 && microbitChoice == 4 || playerChoice == 2 && microbitChoice == 3) {
         basic.showString("You win")
     } else {
         basic.showString("You lose")
     }
+})
+input.onLogoEvent(TouchButtonEvent.Pressed, function () {
+    basic.showLeds(`
+        # . # . #
+        # # # # #
+        # # # # #
+        . . # . .
+        . . # . .
+        `)
+    playerChoice = 3
 })
 let randomMicrobitChoice = 0
 let playerChoice = 0
